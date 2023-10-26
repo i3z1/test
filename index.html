@@ -1,38 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Online Store</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Simple Snake Game</title>
+    <style>
+        #game-board {
+            width: 300px;
+            height: 300px;
+            border: 5px solid black;
+            position: relative;
+        }
+
+        .snake {
+            width: 10px;
+            height: 10px;
+            background-color: green;
+            position: absolute;
+        }
+
+        .food {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>My Online Store</h1>
-  </header>
+<h1>Simple Snake Game</h1>
+<div id="game-board"></div>
 
-  <main>
-    <section id="products">
-      <div class="product-card" id="product1">
-        <img src="images/item1.jpg" alt="Item 1">
-        <h2>Item 1</h2>
-        <p class="price">$10</p>
-        <button onclick="addToCart('Item 1', 10)">Add to Cart</button>
-      </div>
+<script>
+    const gameBoard = document.getElementById('game-board');
+    let snake = [{ x: 0, y: 0 }];
+    let dx = 10;
+    let dy = 0;
+    let food = {};
+    generateFood();
 
-      <div class="product-card" id="product2">
-        <img src="images/item2.jpg" alt="Item 2">
-        <h2>Item 2</h2>
-        <p class="price">$15</p>
-        <button onclick="addToCart('Item 2', 15)">Add to Cart</button>
-      </div>
-    </section>
-  </main>
+    function drawSnake() {
+        gameBoard.innerHTML = '';
+        snake.forEach((segment, index) => {
+            const snakeElement = document.createElement('div');
+            snakeElement.style.left = `${segment.x}px`;
+            snakeElement.style.top = `${segment.y}px`;
+            snakeElement.classList.add('snake');
+            gameBoard.appendChild(snakeElement);
+        });
+    }
 
-  <footer>
-    <p>&copy; 2023 My Online Store</p>
-  </footer>
+    function drawFood() {
+        const foodElement = document.createElement('div');
+        foodElement.style.left = `${food.x}px`;
+        foodElement.style.top = `${food.y}px`;
+        foodElement.classList.add('food');
+        gameBoard.appendChild(foodElement);
+    }
 
-  <script src="script.js"></script>
+    function generateFood() {
+        food.x = Math.floor(Math.random() * 30) * 10;
+        food.y = Math.floor(Math.random() * 30) * 10;
+    }
+
+    function moveSnake() {
+        const newHead = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+        if (newHead.x === food.x && newHead.y === food.y) {
+            snake.unshift(newHead);
+            generateFood();
+        } else {
+            snake.unshift(newHead);
+            snake.pop();
+        }
+    }
+
+    function gameLoop() {
+        moveSnake();
+        drawSnake();
+        drawFood();
+        setTimeout(gameLoop, 100);
+    }
+
+    window.addEventListener('keydown', (e) => {
+        switch (e.key) {
+            case 'ArrowUp': dx = 0; dy = -10; break;
+            case 'ArrowDown': dx = 0; dy = 10; break;
+            case 'ArrowLeft': dx = -10; dy = 0; break;
+            case 'ArrowRight': dx = 10; dy = 0; break;
+        }
+    });
+
+    gameLoop();
+</script>
 
 </body>
 </html>
