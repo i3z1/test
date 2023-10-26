@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
     const stars = [];
   
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 500; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
             ctx.lineTo(star2.x, star2.y);
           }
         }
-        ctx.strokeStyle = "#ffffff";
+        ctx.strokeStyle = "#0000ff";
         ctx.stroke();
       }
   
