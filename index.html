@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Advanced Snake Game</title>
+    <title>Enhanced Snake Game</title>
     <style>
         #game-board {
             width: 300px;
@@ -23,22 +23,38 @@
             background-color: red;
             position: absolute;
         }
+
+        .game-over {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            line-height: 300px;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-<h1>Advanced Snake Game</h1>
-<div id="game-board"></div>
+<h1>Enhanced Snake Game</h1>
+<div id="game-board">
+    <div class="game-over" id="game-over">Game Over!</div>
+</div>
 <p>Score: <span id="score">0</span></p>
 
 <script>
     const gameBoard = document.getElementById('game-board');
+    const gameOverScreen = document.getElementById('game-over');
     const scoreElement = document.getElementById('score');
     let snake = [{ x: 0, y: 0 }];
     let dx = 10;
     let dy = 0;
     let food = {};
     let score = 0;
+    let growth = 3; // Number of segments to add when the snake eats food
     generateFood();
 
     function drawSnake() {
@@ -65,6 +81,10 @@
         food.y = Math.floor(Math.random() * 30) * 10;
     }
 
+    function showGameOver() {
+        gameOverScreen.style.display = 'block';
+    }
+
     function moveSnake() {
         const newHead = { x: snake[0].x + dx, y: snake[0].y + dy };
 
@@ -73,12 +93,14 @@
             newHead.x >= 300 || newHead.y >= 300 ||
             snake.some(segment => segment.x === newHead.x && segment.y === newHead.y)
         ) {
-            alert("Game Over!");
-            window.location.reload();
+            showGameOver();
+            return;
         }
 
         if (newHead.x === food.x && newHead.y === food.y) {
-            snake.unshift(newHead);
+            for (let i = 0; i < growth; i++) {
+                snake.unshift({ ...newHead });
+            }
             generateFood();
             score += 10;
             scoreElement.textContent = score;
@@ -90,9 +112,12 @@
 
     function gameLoop() {
         moveSnake();
+        if (gameOverScreen.style.display === 'block') {
+            return;
+        }
         drawSnake();
         drawFood();
-        setTimeout(gameLoop, 100);
+        requestAnimationFrame(gameLoop);
     }
 
     window.addEventListener('keydown', (e) => {
@@ -104,7 +129,7 @@
         }
     });
 
-    gameLoop();
+    requestAnimationFrame(gameLoop);
 </script>
 
 </body>
