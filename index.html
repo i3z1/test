@@ -50,11 +50,11 @@
     const gameOverScreen = document.getElementById('game-over');
     const scoreElement = document.getElementById('score');
     let snake = [{ x: 0, y: 0 }];
-    let dx = 10;
+    let dx = 2;
     let dy = 0;
     let food = {};
     let score = 0;
-    let growth = 1; // Number of segments to add when the snake eats food
+    let growth = 4; // Number of segments to add when the snake eats food
     generateFood();
 
     function drawSnake() {
