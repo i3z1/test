@@ -1,32 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Simple Website</title>
-    <link rel="stylesheet" href="styles.css">
+  <title>My Online Store</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Simple Website</h1>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-    
-    <main>
-        <p>This is a simple paragraph.</p>
-        <button id="changeText">Click 111Me!</button>
-    </main>
 
-    <footer>
-        <p>Copyright 2023</p>
-    </footer>
+  <header>
+    <h1>My Online Store</h1>
+  </header>
 
-    <script src="script.js"></script>
+  <main>
+    <section id="products">
+      <div class="product-card" id="product1">
+        <img src="images/item1.jpg" alt="Item 1">
+        <h2>Item 1</h2>
+        <p class="price">$10</p>
+        <button onclick="addToCart('Item 1', 10)">Add to Cart</button>
+      </div>
+
+      <div class="product-card" id="product2">
+        <img src="images/item2.jpg" alt="Item 2">
+        <h2>Item 2</h2>
+        <p class="price">$15</p>
+        <button onclick="addToCart('Item 2', 15)">Add to Cart</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 My Online Store</p>
+  </footer>
+
+  <script src="script.js"></script>
+
 </body>
 </html>
