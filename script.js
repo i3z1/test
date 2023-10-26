@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 3 + 1
+        radius: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 1,
+        speedY: (Math.random() - 0.5) * 1
       });
     }
   
@@ -23,6 +25,11 @@ document.addEventListener("DOMContentLoaded", function() {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         ctx.fill();
+        star.x += star.speedX;
+        star.y += star.speedY;
+  
+        if (star.x < 0 || star.x > canvas.width) star.speedX = -star.speedX;
+        if (star.y < 0 || star.y > canvas.height) star.speedY = -star.speedY;
       });
   
       for (let i = 0; i < stars.length; i++) {
