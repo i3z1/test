@@ -3,16 +3,29 @@ document.addEventListener("DOMContentLoaded", function() {
     const ctx = canvas.getContext("2d");
     document.getElementById("constellations").appendChild(canvas);
 
+    let numberOfStars = 300;
+    let maxLineDistance = 100;
+
+    // Function to set responsive values
     function setResponsiveValues() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+
+        if(window.innerWidth < 768) {
+            numberOfStars = 100;
+            maxLineDistance = 50;
+        } else {
+            numberOfStars = 300;
+            maxLineDistance = 100;
+        }
     }
 
     setResponsiveValues();
 
+    // Listen for resize events to make it responsive
     window.addEventListener('resize', setResponsiveValues);
 
-    const stars = Array.from({ length: 300 }, () => ({
+    const stars = Array.from({ length: numberOfStars }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         radius: Math.random() * 3 + 0.5,
