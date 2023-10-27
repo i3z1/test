@@ -5,18 +5,12 @@ document.addEventListener("DOMContentLoaded", function() {
     canvas.height = window.innerHeight;
     document.getElementById("constellations").appendChild(canvas);
 
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-
     const stars = Array.from({ length: 500 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         radius: Math.random() * 2 + 0.5,
-        speedX: (Math.random() - 0.5),
-        speedY: (Math.random() - 0.5),
-        color: `rgba(${255}, ${255}, ${255}, ${Math.random()})` // random opacity
+        speedX: (Math.random() - 0.5) * 1,
+        speedY: (Math.random() - 0.5) * 1
     }));
 
     const mouse = { x: undefined, y: undefined };
@@ -26,9 +20,9 @@ document.addEventListener("DOMContentLoaded", function() {
         mouse.y = e.y;
     });
 
-
-
-
+    function lerp(start, end, amt) {
+        return (1 - amt) * start + amt * end;
+    }
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -45,8 +39,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (distance < 100) {
                 const angle = Math.atan2(dy, dx);
-                star.x += Math.cos(angle) * 3;
-                star.y += Math.sin(angle) * 3;
+                const targetX = star.x + Math.cos(angle) * 3;
+                const targetY = star.y + Math.sin(angle) * 3;
+                star.x = lerp(star.x, targetX, 0.1); // Changed
+                star.y = lerp(star.y, targetY, 0.1); // Changed
             } else {
                 star.x += star.speedX;
                 star.y += star.speedY;
@@ -68,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const dy = star1.y - star2.y;
                 const distance = Math.sqrt(dx ** 2 + dy ** 2);
 
-                if (distance < 100) {  // Reduced this distance to make smaller constellations
+                if (distance < 100) {
                     ctx.lineTo(star2.x, star2.y);
                 }
             });
