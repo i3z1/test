@@ -1,23 +1,37 @@
 document.addEventListener("DOMContentLoaded", function() {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
     document.getElementById("constellations").appendChild(canvas);
-    var modal = document.getElementById("termsModal");
-    var btn = document.getElementById("termsLink");
-    var span = document.getElementsByClassName("close")[0];
-    var modalContent = document.querySelector(".modal-content p");
 
+    // Initialize modal elements
+    const modal = document.getElementById("termsModal");
+    const btn = document.getElementById("termsLink");
+    const span = document.getElementsByClassName("close")[0];
+    const modalContent = document.querySelector(".modal-content p");
 
-    // Dynamic resizing
-    window.addEventListener('resize', function() {
+    let numberOfStars = 300;
+    let maxLineDistance = 100;
+
+    // Function to set responsive values
+    function setResponsiveValues() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    });
-    
 
-    const stars = Array.from({ length: 300 }, () => ({
+        if(window.innerWidth < 768) {
+            numberOfStars = 100;
+            maxLineDistance = 50;
+        } else {
+            numberOfStars = 300;
+            maxLineDistance = 100;
+        }
+    }
+
+    setResponsiveValues();
+
+    // Listen for resize events to make it responsive
+    window.addEventListener('resize', setResponsiveValues);
+
+    const stars = Array.from({ length: numberOfStars }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         radius: Math.random() * 3 + 0.5,
@@ -30,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }));
 
     const mouse = { x: undefined, y: undefined };
-
     window.addEventListener('mousemove', e => {
         mouse.x = e.x;
         mouse.y = e.y;
@@ -41,23 +54,19 @@ document.addEventListener("DOMContentLoaded", function() {
         ctx.fillStyle = "#ffffff";
         
         stars.forEach(star => {
-            // Twinkling logic
-            if (star.twinkling) {
-                star.radius -= star.twinkleSpeed;
-                if (star.radius <= star.minTwinkle) star.twinkling = false;
-            } else {
-                star.radius += star.twinkleSpeed;
-                if (star.radius >= star.maxTwinkle) star.twinkling = true;
-            }
-            
+            // Twinkle logic
+            star.twinkling ? star.radius -= star.twinkleSpeed : star.radius += star.twinkleSpeed;
+            star.twinkling = star.radius <= star.minTwinkle ? false : star.radius >= star.maxTwinkle ? true : star.twinkling;
+
             ctx.beginPath();
             ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
             ctx.fill();
+
+            // Mouse interaction
             const dx = star.x - mouse.x;
             const dy = star.y - mouse.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            // Interaction with mouse
+
             if (distance < 150) {
                 const angle = Math.atan2(dy, dx);
                 star.x += Math.cos(angle) * 1.2;
@@ -67,22 +76,22 @@ document.addEventListener("DOMContentLoaded", function() {
                 star.y += star.speedY;
             }
 
-            // Boundary conditions
+            // Boundary checks
             if (star.x < 0 || star.x > canvas.width) star.speedX = -star.speedX;
             if (star.y < 0 || star.y > canvas.height) star.speedY = -star.speedY;
         });
 
-        // Drawing constellations
+        // Draw constellations
         ctx.strokeStyle = "#ffffff";
         ctx.lineWidth = 0.3;
-        
+
         stars.forEach((star1, i) => {
             stars.slice(i + 1).forEach(star2 => {
                 const dx = star1.x - star2.x;
                 const dy = star1.y - star2.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < 100) {
+                if (distance < maxLineDistance) {
                     ctx.beginPath();
                     ctx.moveTo(star1.x, star1.y);
                     ctx.lineTo(star2.x, star2.y);
@@ -95,5 +104,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     draw();
-  
 });
