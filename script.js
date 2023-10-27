@@ -23,16 +23,15 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
   
-    function loadTermsFromFile() {
-      const modalContent = document.querySelector(".modal-content p");
-      fetch('terms.txt')
+    var modalContent = document.querySelector(".modal-content p");
+    fetch('terms.txt')
         .then(response => response.text())
         .then(data => {
-          if (modalContent) {
-            modalContent.textContent = data;
-          }
+            if (modalContent) {
+                modalContent.innerHTML = data; // Changed from textContent to innerHTML
+            }
         })
-        .catch((error) => console.error('Error fetching terms:', error));
-    }
+      .catch((error) => console.error('Error fetching terms:', error));
+
   });
   
