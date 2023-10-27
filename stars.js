@@ -1,15 +1,16 @@
 document.addEventListener("DOMContentLoaded", function() {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
     document.getElementById("constellations").appendChild(canvas);
 
-    // Dynamic resizing
-    window.addEventListener('resize', function() {
+    function setResponsiveValues() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    });
+    }
+
+    setResponsiveValues();
+
+    window.addEventListener('resize', setResponsiveValues);
 
     const stars = Array.from({ length: 300 }, () => ({
         x: Math.random() * canvas.width,
@@ -25,14 +26,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const interactionPoint = { x: undefined, y: undefined };
 
-    // Mouse events
     window.addEventListener('mousemove', e => {
         interactionPoint.x = e.x;
         interactionPoint.y = e.y;
     });
 
-    // Touch events
     window.addEventListener('touchmove', e => {
+        e.preventDefault(); // Prevents scrolling while touching on the canvas
         interactionPoint.x = e.touches[0].clientX;
         interactionPoint.y = e.touches[0].clientY;
     });
@@ -42,18 +42,15 @@ document.addEventListener("DOMContentLoaded", function() {
         ctx.fillStyle = "#ffffff";
 
         stars.forEach(star => {
-            if (star.twinkling) {
-                star.radius -= star.twinkleSpeed;
-                if (star.radius <= star.minTwinkle) star.twinkling = false;
-            } else {
-                star.radius += star.twinkleSpeed;
-                if (star.radius >= star.maxTwinkle) star.twinkling = true;
-            }
+            // Twinkle logic
+            star.twinkling ? star.radius -= star.twinkleSpeed : star.radius += star.twinkleSpeed;
+            star.twinkling = star.radius <= star.minTwinkle ? false : star.radius >= star.maxTwinkle ? true : star.twinkling;
 
             ctx.beginPath();
             ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
             ctx.fill();
 
+            // Mouse and Touch interaction
             const dx = star.x - interactionPoint.x;
             const dy = star.y - interactionPoint.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -67,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 star.y += star.speedY;
             }
 
+            // Boundary checks
             if (star.x < 0 || star.x > canvas.width) star.speedX = -star.speedX;
             if (star.y < 0 || star.y > canvas.height) star.speedY = -star.speedY;
         });
