@@ -66,8 +66,8 @@ h1 {
     width: 50%;  /* Adjust the width */
     max-height: 70%;  /* Adjust the max height */
     overflow-y: auto;  /* Scroll bar if the content is too large */
+    color: #f7f7f7;  /* Text color */
   }
-  
   .close {
     color: #aaaaaa;
     float: right;
