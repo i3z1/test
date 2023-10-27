@@ -48,6 +48,13 @@ document.addEventListener("DOMContentLoaded", function() {
         mouse.x = e.x;
         mouse.y = e.y;
     });
+    
+
+    const interactionPoint = { x: undefined, y: undefined };
+    window.addEventListener('touchmove', e => {
+        interactionPoint.x = e.touches[0].clientX;
+        interactionPoint.y = e.touches[0].clientY;
+    });
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
