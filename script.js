@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
         canvas.height = window.innerHeight;
     });
 
-    const stars = Array.from({ length: 1000 }, () => ({
+    const stars = Array.from({ length: 300 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         radius: Math.random() * 3 + 0.5,
