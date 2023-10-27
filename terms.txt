@@ -1,0 +1,5 @@
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Terms of Service</h2>
+    <p>These are the terms...</p>
