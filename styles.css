@@ -1,9 +1,9 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
     font-family: Arial, sans-serif;
-    background-color: #000;
+    background-color: #242323;
 }
 
 #constellations {
@@ -26,16 +26,20 @@ body, html {
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 4rem;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 5px #000;
 }
 
 .links a {
-    margin-right: 10px;
-    color: #0f0835;
+    margin-right: 20px;
+    color: #f700ff;
     text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease; /* added transition */
 }
 
 .links a:hover {
     text-decoration: underline;
+    color: #fff;
 }
