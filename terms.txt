@@ -1,5 +1,14 @@
-<div id="termsModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Terms of Service</h2>
-    <p>These are the terms...</p>
+What is Neura? 🎮
+Neura is the leading A.I.-enhanced aiming solution. Leveraging the power of your NVIDIA GPU, Neura excels at tracking and targeting enemies, enhancing your aim precision and granting you an edge in FPS games. Our software boasts seamless setup and user-friendliness, and our dedicated Discord server provides comprehensive support. JOIN us today and embark on your journey to dominance!
+Is Neura Bannable? ❌
+Neura is entirely safe and not susceptible to bans. We do not engage in any form of manipulation or tampering with game files. All our actions remain external and visual, with no direct interaction with the game's files or memory.
+
+It's important to note that Neura's performance relies significantly on your GPU, so having a good GPU is essential for optimal Neura performance. However, exercise caution when using Neura with certain games like Fortnite, as it may potentially be in violation of their Terms of Service, although it does not modify proprietary game files or infringe on their intellectual property rights."
+DO WE SUPPORT AMD CARDS OR INTEGRATED GRAPHICS? ❌
+Currently, our support is exclusive to NVIDIA cards, spanning from the 10 SERIES to the latest 40 SERIES.
+WHAT DO WE DO?
+DISCLAIMER WE ABSOLUTELY DO NOT SELL 'CHEATS' OR ANYTHING THAT INVOLVES TAMPERING WITH GAME FILES, AS THAT IS ILLEGAL AND VIOLATES DISCORD TERMS OF SERVICE. NEURA IS PURELY A VISUAL PROJECT WE ARE PASSIONATELY DEVELOPING.
+
+Neura is an aim assist tool designed to offer a competitive edge, imagine a super advanced version of the Chronus Zen.
+ARE WE THE CREATORS OF LUNAR? ✅
+Yes, indeed, we are the creators of Lunar. However, we kindly request that anyone seeking assistance with Lunar, including inquiries about program fixes or updates, refrain from doing so. Engaging in such discussions will result in a one-week suspension. It's important to note that Lunar is now a relic of the past, and we have ceased all development efforts. ✅

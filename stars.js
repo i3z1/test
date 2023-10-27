@@ -9,20 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var span = document.getElementsByClassName("close")[0];
     var modalContent = document.querySelector(".modal-content p");
 
-  
-    btn.onclick = function() {
-        modal.style.display = "block";
-        }
-    
-        span.onclick = function() {
-        modal.style.display = "none";
-        }
-    
-        window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
 
     // Dynamic resizing
     window.addEventListener('resize', function() {
